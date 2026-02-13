@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamári Kafé Restaurant - Chicago Diner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B3A3A;
+            --secondary: #F5E6D3;
+            --accent: #D4AF37;
+            --foreground: #2C2C2C;
+            --background: #FAF8F3;
+            --border: #E8DCC8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-section img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .call-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .call-btn:hover {
+            background: #6b3410;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 58, 58, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/hero-diner-interior.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Featured Dishes */
+        .featured-section {
+            padding: 5rem 0;
+            background-color: var(--background);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 4rem;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dish-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .dish-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .dish-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .dish-info {
+            padding: 1.5rem;
+        }
+
+        .dish-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .dish-info p {
+            color: var(--foreground);
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            background-color: rgba(245, 230, 211, 0.5);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--foreground);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .info-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .info-item h4 {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item p, .info-item a {
+            color: var(--foreground);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-item a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 5rem 0;
+            background-color: var(--background);
+        }
+
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--secondary);
+            color: var(--foreground);
+        }
+
+        .category-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(139, 58, 58, 0.3);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .menu-items {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(245, 230, 211, 0.5);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .menu-item-name h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-popular {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .badge-vegetarian {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .menu-item-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .menu-item-description {
+            color: var(--foreground);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 0.75rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Order Online Section */
+        .order-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #6b3410 100%);
+            color: var(--white);
+        }
+
+        .order-section .section-title {
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .order-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .order-link {
+            display: block;
+            background: var(--white);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .order-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            background-color: rgba(245, 230, 211, 0.5);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            color: var(--primary);
+            margin: 0 auto 1rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p, .contact-item a {
+            color: var(--foreground);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 5rem 0;
+            background-color: var(--background);
+        }
+
+        .map-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            margin-top: 1.5rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Floating Call Button */
+        .floating-call {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(139, 58, 58, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.5rem;
+        }
+
+        .floating-call:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(139, 58, 58, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-call {
+                display: none;
+            }
+
+            .menu-item-header {
+                flex-direction: column;
+            }
+
+            .menu-item-price {
+                align-self: flex-start;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="images/logo.png" alt="Kamári Kafé Logo">
+                    <span class="logo-text">Kamári Kafé</span>
+                </div>
+                <a href="tel:+17734670316" class="call-btn">
+                    <span>📞</span>
+                    <span>(773) 467-0316</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Kamári Kafé Restaurant</h2>
+            <p>Authentic Diner Experience</p>
+            <p>Classic American comfort food, made fresh daily</p>
+        </div>
+    </section>
+
+    <!-- Featured Dishes -->
+    <section class="featured-section">
+        <div class="container">
+            <h2 class="section-title">Featured Dishes</h2>
+            <div class="dishes-grid">
+                <div class="dish-card">
+                    <img src="images/eggs-breakfast.jpg" alt="Classic Breakfast">
+                    <div class="dish-info">
+                        <h3>Classic Breakfast</h3>
+                        <p>Fresh eggs, crispy bacon & golden toast</p>
+                    </div>
+                </div>
+                <div class="dish-card">
+                    <img src="images/burger-classic.jpg" alt="Premium Burger">
+                    <div class="dish-info">
+                        <h3>Premium Burger</h3>
+                        <p>Juicy beef patty with all the fixings</p>
+                    </div>
+                </div>
+                <div class="dish-card">
+                    <img src="images/pancakes-stack.jpg" alt="Fluffy Pancakes">
+                    <div class="dish-info">
+                        <h3>Fluffy Pancakes</h3>
+                        <p>Golden stacks with fresh berries & syrup</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Welcome to Kamári Kafé</h3>
+                    <p>Experience the warmth and hospitality of a true neighborhood diner. Our menu features classic American breakfast, lunch, and dinner favorites, all prepared with fresh ingredients and genuine care.</p>
+                    <p>From fluffy pancakes to juicy burgers, every dish is crafted to bring back memories of home-cooked meals and good times with family and friends.</p>
+                </div>
+                <div class="info-box">
+                    <div class="info-item">
+                        <svg class="info-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Daily: 7:00 AM - 3:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <svg class="info-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C7.13 2 3 6.13 3 11c0 5.25 9 13 9 13s9-7.75 9-13c0-4.87-4.13-9-9-9zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <div>
+                            <h4>Location</h4>
+                            <p>6101 North Northwest Highway, Chicago, IL</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <svg class="info-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                        <div>
+                            <h4>Call Us</h4>
+                            <a href="tel:+17734670316">(773) 467-0316</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="category-tabs" id="categoryTabs"></div>
+            <div class="menu-items" id="menuItems"></div>
+        </div>
+    </section>
+
+    <!-- Order Online Section -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <h2 class="section-title">Order Online</h2>
+            <div class="order-grid">
+                <div class="order-card">
+                    <h3>Pickup</h3>
+                    <div class="order-links">
+                        <a href="https://order.online/store/norwood-restaurant-northwest-hwy-183768?hideModal=true&pickup=true&rwg_token=AFd1xnFRsYbQhqVI8asmSwi9pHO4TrvAVLn88nvlfMI9rhaBs8KYtnBR_YnoxaRPk7ggJCKqlfw0ED9OTF8tzVfulVJMn6HaPQ%3D%3D&utm_source=gfo" target="_blank" class="order-link">DoorDash Pickup</a>
+                        <a href="https://www.trycaviar.com/store/norwood-restaurant-chicago-183768/1137313/?pickup=true&utm_campaign=gpa" target="_blank" class="order-link">Caviar Pickup</a>
+                        <a href="https://www.doordash.com/store/norwood-restaurant-chicago-183768/?utm_campaign=gpa&pickup=true" target="_blank" class="order-link">DoorDash</a>
+                    </div>
+                </div>
+                <div class="order-card">
+                    <h3>Delivery</h3>
+                    <div class="order-links">
+                        <a href="https://order.online/store/-183768/?delivery=true&hideModal=true&utm_source=gfo&rwg_token=AFd1xnFnHTtWN16_tquoxIDe8NQaYTCmZKu15Yxf6Ehikx7DM7O0lpqE9Tx1sVG89QBdnrBr4TzbXMlcrI7R3SYmlUCCRaO9FA%3D%3D" target="_blank" class="order-link">DoorDash Delivery</a>
+                        <a href="https://www.trycaviar.com/store/norwood-restaurant-chicago-183768/1137313/?utm_campaign=gpa" target="_blank" class="order-link">Caviar Delivery</a>
+                        <a href="https://www.ubereats.com/store/kamari-kafe-6101-north-northwest-highway/gKDGzhvUUGSleivbEFWszA?utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank" class="order-link">Uber Eats</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    <h3>Call Us</h3>
+                    <a href="tel:+17734670316">(773) 467-0316</a>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C7.13 2 3 6.13 3 11c0 5.25 9 13 9 13s9-7.75 9-13c0-4.87-4.13-9-9-9zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <h3>Visit Us</h3>
+                    <p>6101 North Northwest Highway<br>Chicago, IL</p>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    <h3>Hours</h3>
+                    <p>Daily: 7:00 AM - 3:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="map">
+        <div class="container">
+            <h2 class="section-title">Find Us on the Map</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.5555555555556!2d-87.8166666666667!3d41.98333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fb5d5d5d5d5d5%3A0x5555555555555555!2s6101%20North%20Northwest%20Highway%2C%20Chicago%2C%20IL!5e0!3m2!1sen!2sus!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Kamári Kafé Restaurant</h3>
+            <p>6101 North Northwest Highway, Chicago, IL</p>
+            <p><a href="tel:+17734670316">(773) 467-0316</a></p>
+            <p class="footer-copyright">© 2026 Kamári Kafé Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Call Button -->
+    <a href="tel:+17734670316" class="floating-call" title="Call us">📞</a>
+
+    <script>
+        // Menu Data
+        const menuData = [
+            {
+                title: "EGG-CEPTIONAL",
+                items: [
+                    { name: "Two Eggs Any Style", price: "$6.99", description: "Served with hash browns and toast" },
+                    { name: "Cheese Omelette", price: "$8.99", description: "Three eggs with American cheese, hash browns and toast" },
+                    { name: "Bacon & Egg Sandwich", price: "$7.99", description: "Crispy bacon with eggs on a toasted bagel" },
+                    { name: "Breakfast Burrito", price: "$9.99", description: "Scrambled eggs, sausage, peppers, onions and cheese" }
+                ]
+            },
+            {
+                title: "OUTRAGEOUS OMELETTES",
+                items: [
+                    { name: "Western Omelette", price: "$10.99", description: "Ham, peppers, onions and cheese" },
+                    { name: "Veggie Omelette", price: "$10.99", description: "Mushrooms, peppers, onions, tomatoes and cheese", vegetarian: true },
+                    { name: "Meat Lovers Omelette", price: "$11.99", description: "Bacon, sausage, ham and cheese" },
+                    { name: "Greek Omelette", price: "$10.99", description: "Feta cheese, spinach, tomatoes and olives", vegetarian: true }
+                ]
+            },
+            {
+                title: "IRON SKILLETS",
+                items: [
+                    { name: "Breakfast Skillet", price: "$9.99", description: "Hash browns, bacon, sausage, eggs and cheese" },
+                    { name: "Veggie Skillet", price: "$9.99", description: "Hash browns, peppers, onions, mushrooms, tomatoes and cheese", vegetarian: true },
+                    { name: "Corned Beef Hash", price: "$10.99", description: "Corned beef with hash browns, onions and eggs" }
+                ]
+            },
+            {
+                title: "HANDHELDS",
+                items: [
+                    { name: "Classic BLT", price: "$7.99", description: "Bacon, lettuce, tomato on toasted bread" },
+                    { name: "Turkey Club", price: "$8.99", description: "Turkey, bacon, lettuce, tomato on three slices of bread" },
+                    { name: "Grilled Cheese", price: "$6.99", description: "Melted American cheese on buttered bread", vegetarian: true },
+                    { name: "Tuna Salad Sandwich", price: "$8.99", description: "Fresh tuna salad on your choice of bread" }
+                ]
+            },
+            {
+                title: "GOLDEN & FLUFFY",
+                items: [
+                    { name: "Pancakes (3)", price: "$7.99", description: "Served with butter and syrup", vegetarian: true },
+                    { name: "Chocolate Chip Pancakes", price: "$8.99", description: "Three pancakes loaded with chocolate chips", vegetarian: true },
+                    { name: "French Toast", price: "$7.99", description: "Three slices with butter and syrup", vegetarian: true },
+                    { name: "Waffle", price: "$7.99", description: "Crispy waffle with butter and syrup", vegetarian: true }
+                ]
+            },
+            {
+                title: "THE BURGER BAR",
+                items: [
+                    { name: "Classic Hamburger", price: "$7.99", description: "Juicy beef patty with lettuce, tomato, onion and pickles", popular: true },
+                    { name: "Cheeseburger", price: "$8.49", description: "Hamburger with melted American cheese" },
+                    { name: "Bacon Cheeseburger", price: "$9.49", description: "Cheeseburger topped with crispy bacon" },
+                    { name: "Mushroom Swiss Burger", price: "$9.49", description: "Burger with sautéed mushrooms and Swiss cheese" },
+                    { name: "Double Burger", price: "$10.99", description: "Two beef patties with all the fixings" }
+                ]
+            },
+            {
+                title: "THE CLUB COLLECTION",
+                items: [
+                    { name: "Turkey Club", price: "$9.99", description: "Turkey, bacon, lettuce, tomato on three slices" },
+                    { name: "Chicken Club", price: "$9.99", description: "Grilled chicken, bacon, lettuce, tomato on three slices" },
+                    { name: "Roast Beef Club", price: "$10.99", description: "Sliced roast beef, bacon, lettuce, tomato on three slices" }
+                ]
+            },
+            {
+                title: "SIGNATURE STACKS",
+                items: [
+                    { name: "Patty Melt", price: "$9.99", description: "Beef patty with grilled onions and Swiss cheese on rye bread", popular: true },
+                    { name: "Reuben", price: "$9.99", description: "Corned beef, sauerkraut, Swiss cheese and Russian dressing on rye" },
+                    { name: "Philly Cheesesteak", price: "$10.99", description: "Sliced steak, peppers, onions and melted cheese" }
+                ]
+            },
+            {
+                title: "KAMARI KIDS",
+                items: [
+                    { name: "Kids Pancakes", price: "$5.99", description: "Two pancakes with butter and syrup", vegetarian: true },
+                    { name: "Kids Mac & Cheese", price: "$5.99", description: "Creamy mac and cheese", vegetarian: true },
+                    { name: "Kids Burger", price: "$6.99", description: "Small burger with fries" },
+                    { name: "Kids Grilled Cheese", price: "$5.99", description: "Grilled cheese with fries", vegetarian: true }
+                ]
+            },
+            {
+                title: "SALAD SPOT",
+                items: [
+                    { name: "Garden Salad", price: "$7.99", description: "Mixed greens with vegetables and your choice of dressing", vegetarian: true },
+                    { name: "Caesar Salad", price: "$8.99", description: "Romaine lettuce with Parmesan and croutons", vegetarian: true },
+                    { name: "Chicken Caesar Salad", price: "$10.99", description: "Caesar salad with grilled chicken" },
+                    { name: "Cobb Salad", price: "$10.99", description: "Mixed greens with chicken, bacon, eggs, avocado and blue cheese" }
+                ]
+            },
+            {
+                title: "THE DRINK LIST",
+                items: [
+                    { name: "Coffee", price: "$2.99", description: "Fresh brewed coffee", vegetarian: true },
+                    { name: "Iced Coffee", price: "$3.49", description: "Cold brew iced coffee", vegetarian: true },
+                    { name: "Hot Tea", price: "$2.99", description: "Selection of hot teas", vegetarian: true },
+                    { name: "Soft Drinks", price: "$2.49", description: "Coke, Sprite, Dr Pepper and more", vegetarian: true },
+                    { name: "Juice", price: "$3.99", description: "Orange, apple or cranberry juice", vegetarian: true }
+                ]
+            },
+            {
+                title: "COFFEE CORNER",
+                items: [
+                    { name: "Cappuccino", price: "$4.99", description: "Espresso with steamed milk and foam", vegetarian: true },
+                    { name: "Latte", price: "$4.99", description: "Espresso with steamed milk", vegetarian: true },
+                    { name: "Americano", price: "$3.99", description: "Espresso shots with hot water", vegetarian: true },
+                    { name: "Mocha", price: "$5.49", description: "Espresso with steamed milk and chocolate", vegetarian: true }
+                ]
+            },
+            {
+                title: "EXTRA BITES",
+                items: [
+                    { name: "Hash Browns", price: "$2.99", description: "Crispy hash browns", vegetarian: true },
+                    { name: "Bacon", price: "$3.99", description: "Three strips of crispy bacon" },
+                    { name: "Sausage", price: "$3.99", description: "Two sausage patties" },
+                    { name: "Toast", price: "$1.99", description: "Two slices of buttered toast", vegetarian: true },
+                    { name: "Fruit Cup", price: "$4.99", description: "Fresh seasonal fruits", vegetarian: true }
+                ]
+            }
+        ];
+
+        // Initialize menu
+        function initMenu() {
+            const categoryTabs = document.getElementById('categoryTabs');
+            const menuItems = document.getElementById('menuItems');
+
+            // Create category buttons
+            menuData.forEach((category, index) => {
+                const btn = document.createElement('button');
+                btn.className = `category-btn ${index === 0 ? 'active' : ''}`;
+                btn.textContent = category.title;
+                btn.onclick = () => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    displayMenuItems(index);
+                };
+                categoryTabs.appendChild(btn);
+            });
+
+            // Display first category
+            displayMenuItems(0);
+        }
+
+        function displayMenuItems(categoryIndex) {
+            const menuItems = document.getElementById('menuItems');
+            menuItems.innerHTML = '';
+
+            const category = menuData[categoryIndex];
+            category.items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'menu-item';
+                itemDiv.innerHTML = `
+                    <div class="menu-item-header">
+                        <div class="menu-item-name">
+                            <h4>${item.name}</h4>
+                            ${item.popular ? '<span class="badge badge-popular">POPULAR</span>' : ''}
+                            ${item.vegetarian ? '<span class="badge badge-vegetarian">VEGETARIAN</span>' : ''}
+                        </div>
+                        <div class="menu-item-price">${item.price}</div>
+                    </div>
+                    <div class="menu-item-description">${item.description}</div>
+                `;
+                menuItems.appendChild(itemDiv);
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initMenu);
+    </script>
+</body>
+</html>
